@@ -1,10 +1,10 @@
 <template>
-  <nav class="nav">
+  <section class="pagination">
     <ul>
-      <li v-show="prev"><router-link to="'/' + current + 1">归档</router-link></li>
-      <li v-show="next"><a href="javascript:;" @click.prevent="{current++}">关于我</a></li>
+      <li v-show="prev" class="button-round" @click.prevent="childCurrent--">← 上一页</li>
+      <li v-show="next" class="button-round" @click.prevent="childCurrent++">下一页 →</li>
     </ul>
-  </nav>
+  </section>
 </template>
 
 <script>
@@ -12,7 +12,7 @@ export default {
   name: "Pagination",
   data() {
     return {
-      hasPagination: false
+      childCurrent: this.current
     };
   },
   props: {
@@ -38,22 +38,29 @@ export default {
     }
   },
   watch: {
-    current: (oldValue, newValue) => {
-      console.log(oldValue + " " + newValue);
-    }
-  },
-  mounted() {},
-  methods: {
-    prev() {
-      this.$emit("pagechange", this.current);
-    },
-    next() {
-      this.$emit("pagechange", this.current);
+    // 子组件不能更改父组件prop
+    childCurrent: function(newValue) {
+      this.$emit("getPostData", newValue);
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/style/global";
+@import "../assets/style/global";
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: px2rem(10) 0;
+  ul {
+    display: flex;
+    li {
+      display: flex;
+      &:last-child {
+        padding-left: px2rem(10);
+      }
+    }
+  }
+}
 </style>

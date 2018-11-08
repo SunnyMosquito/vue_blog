@@ -15,14 +15,11 @@
         <router-link :to="'posts/' + post.id" class="button-round">阅读全文 →</router-link>
       </div>
     </section>
-    <section class="pagination">
-      <nav>
-        <ul>
-          <li v-show="prev"><a href="#" class="button-round" @click.prevent="current--">← 上一页</a></li>
-          <li v-show="next"><a href="#" class="button-round" @click.prevent="current++">下一页 →</a></li>
-        </ul>
-      </nav>
-    </section>
+    <pagination :count="count"
+                :current="current"
+                :prev="prev"
+                :next="next"
+                @getPostData="getPostData" />
     <app-footer></app-footer>
   </div>
 </template>
@@ -30,49 +27,48 @@
 <script>
 import AppHeader from "../components/header/AppHeader.vue";
 import AppFooter from "../components/footer/AppFooter.vue";
+import Pagination from "../components/Pagination.vue";
+import { mapState, mapMutations } from "vuex";
+
 export default {
   name: "Home",
   data() {
     return {
       current: 1,
+      count: null,
       prev: "",
       next: "",
-      postList: [],
-      response: {}
+      postList: []
     };
   },
   components: {
     AppHeader,
-    AppFooter
+    AppFooter,
+    Pagination
   },
   created() {
     this.getPostData();
   },
-  watch: {
-    current(newValue, oldValue) {
-      console.log(oldValue);
-      this.getPostData(newValue);
-    }
+  computed: {
+    ...mapState(["pageList"])
   },
   methods: {
-    getPostData(page) {
-      let url = "/api/posts/";
-      if (page) {
-        url += `?page=${page}`;
-      }
-      if (this.response.hasOwnProperty(url)) {
-        this.postList = this.response[url].data.results;
-        this.next = this.response[url].data.next;
-        this.prev = this.response[url].data.previous;
+    ...mapMutations(["SET_PAGE_LIST"]),
+    getPostData(page = 1) {
+      let url = `/api/posts/?page=${page}`;
+      if (this.pageList.hasOwnProperty(url)) {
+        this.postList = this.pageList[url].results;
+        this.prev = this.pageList[url].previous;
+        this.next = this.pageList[url].next;
       } else {
         this.axios
           .get(url)
           .then(
             function(response) {
-              this.response[url] = response;
-              this.postList = response.data.results;
-              this.next = response.data.next;
-              this.prev = response.data.previous;
+              this.SET_PAGE_LIST({ url: url, response: response.data });
+              this.postList = this.pageList[url].results;
+              this.prev = this.pageList[url].previous;
+              this.next = this.pageList[url].next;
             }.bind(this)
           )
           .catch(
@@ -88,24 +84,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-@import "../assets/style/global";
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: px2rem(10) 0;
-  nav {
-    ul {
-      display: flex;
-      li {
-        display: flex;
-        &:last-child {
-          padding-left: px2rem(10);
-        }
-      }
-    }
-  }
-}
 @import "../assets/style/global";
 .home {
   .content {

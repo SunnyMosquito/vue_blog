@@ -1,6 +1,7 @@
 const home = r => require.ensure([], () => r(require('@/page/Home.vue')), 'home')
 const category = r => require.ensure([], () => r(require('@/page/Category.vue')), 'category')
 const post = r => require.ensure([], () => r(require('@/page/Post.vue')), 'post')
+const archive = r => require.ensure([], () => r(require('@/page/Archive.vue')), 'archive')
 
 export default [{
         path: '',
@@ -9,15 +10,23 @@ export default [{
             keepAlive: true
         }
     },
-    //首页
+    //归档
     {
         path: '/archive',
+        component: archive,
+        meta: {
+            keepAlive: true
+        }
+    },
+    // 留言页
+    {
+        path: '/message',
         component: home,
         meta: {
             keepAlive: true
         }
     },
-    //首页
+    //关于我
     {
         path: '/about',
         component: home,
@@ -25,6 +34,7 @@ export default [{
             keepAlive: true
         }
     },
+    // 分类
     {
         path: '/category/:categoryName',
         component: category,
@@ -32,6 +42,7 @@ export default [{
             keepAlive: false
         }
     },
+    // 文章页
     {
         path: '/posts/:postId',
         component: post,

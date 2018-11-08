@@ -15,12 +15,13 @@
           <a @click.stop="toggleSubMenu" 
              :class="{ 'router-link-exact-active' : $route.path.indexOf('category') != -1 }">分类</a>
           <ul class="submenu" v-show="ifSubMenuShow">
-            <li v-for="(item, index) in categoryList" :key="index">
-              <router-link :to="'/category/' + item.id">{{item.name}}</router-link>
+            <li v-for="(item, index) in categories" :key="index">
+              <router-link :to="'/category/' + item.name">{{item.name}}</router-link>
             </li>
           </ul>
         </li>
         <li><router-link to="/archive">归档</router-link></li>
+        <li><router-link to="/message">留言</router-link></li>
         <li><router-link to="/about">关于我</router-link></li>
       </ul>
     </nav>
@@ -38,23 +39,24 @@ export default {
     };
   },
   created() {
-    this.getCategoryList();
+    this.getCategories();
   },
   mounted() {},
   computed: {
-    ...mapState(["categoryList"])
+    ...mapState(["categories"])
   },
   methods: {
     // headroom.js
-    ...mapMutations(["SET_CATEGORY_LIST"]),
-    getCategoryList() {
+    ...mapMutations(["SET_CATEGORIES"]),
+    getCategories() {
       let url = "/api/categorys/";
-      if (this.categoryList.length < 1) {
+      // 如果没有获取分类数据就获取
+      if (this.categories.length < 1) {
         this.axios
           .get(url)
           .then(
             function(response) {
-              this.SET_CATEGORY_LIST(response.data);
+              this.SET_CATEGORIES(response.data);
             }.bind(this)
           )
           .catch(

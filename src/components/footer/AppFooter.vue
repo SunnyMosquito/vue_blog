@@ -22,7 +22,7 @@ export default {
   justify-content: center;
   align-items: center;
   height: px2rem(60);
-  margin-top: px2rem(30);
+  margin-top: px2rem(20);
   font-size: px2rem(16);
   background-color: $bgColor;
   a {
