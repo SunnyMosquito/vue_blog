@@ -11,11 +11,11 @@
 
 CREATE TABLE `comment` (
     `id` varchar(50) NOT NULL,
-    `issue_id` varchar(50) NOT NULL COMMENT '笔记Id',
+    `post_id` varchar(50) NOT NULL COMMENT '笔记Id',
     `user_id` varchar(50) NOT NULL COMMENT '回复人',
-    `reply_msg` varchar(500) DEFAULT NULL COMMENT '回复内容',
+    `content` varchar(500) DEFAULT NULL COMMENT '回复内容',
     `create_date` datetime NOT NULL COMMENT '创建时间',
-    `zan_count` int COMMENT '赞数',
+    `like_count` int COMMENT '赞数',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8 ROW_FORMAT = DYNAMIC COMMENT = '评论表' 
 
