@@ -9,7 +9,6 @@
         </li>
       </ul>
     </section>
-    <pagination />
     <app-footer></app-footer>
   </div>
 </template>
@@ -17,7 +16,6 @@
 <script>
 import AppHeader from "../components/header/AppHeader.vue";
 import AppFooter from "../components/footer/AppFooter.vue";
-import Pagination from "../components/Pagination.vue";
 import { mapState, mapMutations } from "vuex";
 
 export default {
@@ -27,8 +25,7 @@ export default {
   },
   components: {
     AppHeader,
-    AppFooter,
-    Pagination
+    AppFooter
   },
   computed: {
     ...mapState(["categoryList"])
@@ -78,10 +75,12 @@ export default {
 <style lang="scss" scoped>
 @import "../assets/style/global";
 .category {
+  margin-top: px2rem(20);
+  margin-bottom: px2rem(20);
   h2 {
     text-align: center;
-    padding: px2rem(10) 0;
-    font-size: px2rem(22);
+    padding: px2rem(8) 0;
+    font-size: px2rem(18);
     border-bottom: px2rem(1) solid $bgColor;
   }
   ul {
@@ -89,8 +88,8 @@ export default {
       a {
         display: flex;
         color: $linkColor;
-        font-size: px2rem(16);
-        padding: px2rem(15) px2rem(1);
+        font-size: px2rem(14);
+        padding: px2rem(8) px2rem(4);
         border-bottom: px2rem(1) solid $bgColor;
         white-space: nowrap;
         overflow: scroll;

@@ -7,12 +7,12 @@
 				<div class="post-info-wrap">
 					<span>{{post.pub_date}}</span>
 					<span class="cut-off">|</span>
-          <router-link to="#">{{post.category_display}}</router-link>
+          <router-link :to="'/category/' + post.category_display ">{{post.category_display}}</router-link>
 				</div>
 				<p class="post-summary">
 					{{post.description}}
 				</p>
-        <router-link :to="'posts/' + post.id" class="button-round">阅读全文 →</router-link>
+        <router-link :to="'posts/' + post.id" class="button-round">阅读全文→</router-link>
       </div>
     </section>
     <pagination :count="count"
@@ -87,20 +87,21 @@ export default {
 @import "../assets/style/global";
 .home {
   .content {
+    margin-top: px2rem(10);
     color: $bgColor;
     .post {
-      padding: px2rem(15) 0;
+      padding: px2rem(10) 0;
       border-bottom: px2rem(1) solid $hoverColor;
       .post-title {
         h1 {
-          font-size: px2rem(20);
+          font-size: px2rem(16);
           font-weight: bold;
           color: $bgColor;
         }
       }
       .post-info-wrap {
-        padding: px2rem(10) 0;
-        font-size: px2rem(14);
+        padding: px2rem(8) 0;
+        font-size: px2rem(12);
         color: $linkColor;
         a {
           color: $linkColor;

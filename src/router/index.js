@@ -2,6 +2,8 @@ const home = r => require.ensure([], () => r(require('@/page/Home.vue')), 'home'
 const category = r => require.ensure([], () => r(require('@/page/Category.vue')), 'category')
 const post = r => require.ensure([], () => r(require('@/page/Post.vue')), 'post')
 const archive = r => require.ensure([], () => r(require('@/page/Archive.vue')), 'archive')
+const message = r => require.ensure([], () => r(require('@/page/Message.vue')), 'message')
+const about = r => require.ensure([], () => r(require('@/page/About.vue')), 'about')
 
 export default [{
         path: '',
@@ -21,7 +23,7 @@ export default [{
     // 留言页
     {
         path: '/message',
-        component: home,
+        component: message,
         meta: {
             keepAlive: true
         }
@@ -29,7 +31,7 @@ export default [{
     //关于我
     {
         path: '/about',
-        component: home,
+        component: about,
         meta: {
             keepAlive: true
         }

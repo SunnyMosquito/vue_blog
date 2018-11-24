@@ -21,10 +21,9 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: px2rem(60);
-  margin-top: px2rem(20);
-  font-size: px2rem(16);
+  font-size: px2rem(14);
   background-color: $bgColor;
+  padding: px2rem(15) 0;
   a {
     color: $linkColor;
   }

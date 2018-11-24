@@ -15,7 +15,7 @@ import { mapState, mapMutations } from "vuex";
 import "github-markdown-css";
 
 export default {
-  name: "Home",
+  name: "post",
   data() {
     return {
       post: { content: null }
@@ -36,19 +36,17 @@ export default {
   created() {
     this.getPostData(this.$route.params.postId);
   },
-  watch: {},
   methods: {
     ...mapMutations(["SET_POST"]),
     getPostData(postId) {
       let url = "/api/posts/" + postId + "/";
-      console.log(this.posts);
-      if (!this.posts.hasOwnProperty(url)) {
+      if (!this.posts.hasOwnProperty(postId)) {
         this.axios
           .get(url)
           .then(
             function(response) {
               this.post = response.data;
-              this.SET_POST({ post: this.post, url: url });
+              this.SET_POST({ data: this.post, id: postId });
             }.bind(this)
           )
           .catch(
@@ -57,7 +55,7 @@ export default {
             }.bind(this)
           );
       } else {
-        this.post = this.posts[url];
+        this.post = this.posts[postId];
       }
     }
   }
@@ -67,4 +65,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 @import "../assets/style/global";
+.markdown-body {
+  margin: px2rem(20) 0;
+}
 </style>

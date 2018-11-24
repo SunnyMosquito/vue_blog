@@ -8,7 +8,7 @@ export default {
         state.categories = categories;
     },
     [types.SET_POST](state, post) {
-        state.posts[post["url"]] = post["post"];
+        state.posts[post["id"]] = post["data"];
     },
     [types.SET_PAGE_LIST](state, pageData) {
         state.pageList[pageData["url"]] = pageData["response"];

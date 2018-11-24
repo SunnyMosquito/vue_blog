@@ -95,15 +95,14 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: px2rem(10);
   background-color: $bgColor;
   .logo {
     h1 {
       a {
         display: flex;
         align-items: center;
-        height: px2rem(50);
-        font-size: px2rem(20);
+        padding: px2rem(11) 0;
+        font-size: px2rem(18);
         font-weight: 800;
         color: $hoverColor;
       }
@@ -124,8 +123,8 @@ export default {
         flex: 1;
         flex-direction: column;
         a {
-          font-size: px2rem(16);
-          padding: px2rem(17) 0;
+          font-size: px2rem(14);
+          padding: px2rem(13) 0;
           color: $linkColor;
           cursor: pointer;
         }
