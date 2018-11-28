@@ -2,14 +2,15 @@
   <div class="post">
     <app-header></app-header>
     <article class="markdown-body wrap" v-html="compiledMarkdown"></article>
+    <comment></comment>
     <app-footer></app-footer>
   </div>
-  
 </template>
 
 <script>
 import AppHeader from "../components/header/AppHeader.vue";
 import AppFooter from "../components/footer/AppFooter.vue";
+import Comment from "../components/Comment.vue";
 import marked from "marked";
 import { mapState, mapMutations } from "vuex";
 import "github-markdown-css";
@@ -23,7 +24,8 @@ export default {
   },
   components: {
     AppHeader,
-    AppFooter
+    AppFooter,
+    Comment
   },
   computed: {
     ...mapState(["posts"]),

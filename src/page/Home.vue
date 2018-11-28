@@ -3,23 +3,26 @@
     <app-header></app-header>
     <section class="content wrap">
       <div class="post" v-for="(post, index) in postList" :key="index">
-        <router-link :to="'posts/' + post.id" class="post-title"><h1>{{post.title}}</h1></router-link>
-				<div class="post-info-wrap">
-					<span>{{post.pub_date}}</span>
-					<span class="cut-off">|</span>
+        <router-link :to="'posts/' + post.id" class="post-title">
+          <h1>{{post.title}}</h1>
+        </router-link>
+        <div class="post-info-wrap">
+          <span>{{post.pub_date}}</span>
+          <span class="cut-off">|</span>
           <router-link :to="'/category/' + post.category_display ">{{post.category_display}}</router-link>
-				</div>
-				<p class="post-summary">
-					{{post.description}}
-				</p>
+        </div>
+        <p class="post-summary">{{post.description}}</p>
         <router-link :to="'posts/' + post.id" class="button-round">阅读全文→</router-link>
       </div>
+      <div v-show="postList.length < 1">loading...</div>
     </section>
-    <pagination :count="count"
-                :current="current"
-                :prev="prev"
-                :next="next"
-                @getPostData="getPostData" />
+    <pagination
+      :count="count"
+      :current="current"
+      :prev="prev"
+      :next="next"
+      @getPostData="getPostData"
+    />
     <app-footer></app-footer>
   </div>
 </template>
