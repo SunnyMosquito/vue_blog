@@ -2,30 +2,37 @@
   <header class="header wrap" @click="hideSubMenu">
     <div class="logo">
       <h1>
-        <router-link to="/">
-          蚊子的个人博客
-        </router-link>
+        <router-link to="/">蚊子的个人博客</router-link>
       </h1>
     </div>
     <nav class="nav">
       <ul>
-        <li><router-link to="/">主页</router-link></li>
+        <li>
+          <router-link to="/">主页</router-link>
+        </li>
         <li>
           <!-- 如果路由里有category就给分类加上active类 -->
-          <a @click.stop="toggleSubMenu" 
-             :class="{ 'router-link-exact-active' : $route.path.indexOf('category') != -1 }">分类</a>
+          <a
+            @click.stop="toggleSubMenu"
+            :class="{ 'router-link-exact-active' : $route.path.indexOf('category') != -1 }"
+          >分类</a>
           <ul class="submenu" v-show="ifSubMenuShow">
             <li v-for="(item, index) in categories" :key="index">
               <router-link :to="'/category/' + item.name">{{item.name}}</router-link>
             </li>
           </ul>
         </li>
-        <li><router-link to="/archive">归档</router-link></li>
-        <li><router-link to="/message">留言</router-link></li>
-        <li><router-link to="/about">关于我</router-link></li>
+        <li>
+          <router-link to="/archive">归档</router-link>
+        </li>
+        <li>
+          <router-link to="/message">留言</router-link>
+        </li>
+        <li>
+          <router-link to="/about">关于我</router-link>
+        </li>
       </ul>
     </nav>
-
   </header>
 </template>
 

@@ -7,7 +7,7 @@
         <div class="item" v-for="(item,index) in messages" :key="index">
           <b>{{item.nickname}}：</b>
           <p>{{item.content}}</p>
-          <i>——{{item.date}}</i>
+          <i>——{{item.pub_date}}</i>
         </div>
       </section>
     </div>
@@ -28,28 +28,7 @@ export default {
     return {
       nickname: "",
       message: "",
-      messages: [
-        {
-          id: 1,
-          content:
-            "邓公公的声音方落下，那面色苍白的小将军才回过神来，一袭银袍落地，旋即清亮的声音响起。",
-          nickname: "admin",
-          date: "2012-01-12"
-        },
-        {
-          id: 2,
-          content: "李墨衍敛去笑意，眉间轻蹙。",
-          nickname: "张三",
-          date: "2012-01-12"
-        },
-        {
-          id: 3,
-          content:
-            "微风袭过，银杏树的枝丫晃了晃，一片银杏叶落到地上。李墨衍蹲下，将其拾起。若是那人见了，估计又要心痛不已了。他可是最宝贝这银杏树的。",
-          nickname: "李四",
-          date: "2012-01-12"
-        }
-      ]
+      messages: []
     };
   },
   components: {
@@ -58,16 +37,59 @@ export default {
     CommentForm
   },
   computed: {},
-  created() {},
+  created() {
+    this.getMessages();
+  },
   methods: {
     submitContent(msg) {
-      console.log("message.vue");
-      this.messages.push({
-        id: 1,
-        content: msg.message,
-        nickname: msg.nickname,
-        date: getNowFormatDate()
-      });
+      // console.log("message.vue");
+      // this.messages.push({
+      //   id: 1,
+      //   content: msg.message,
+      //   nickname: msg.nickname,
+      //   date: getNowFormatDate()
+      // });
+      this.postMessage(msg);
+    },
+    postMessage(msg) {
+      let url = "/api/messages/";
+      this.axios
+        .post(url, msg)
+        .then(
+          function(response) {
+            console.log(response.data);
+            this.messages.push(response.data);
+          }.bind(this)
+        )
+        .catch(
+          function(error) {
+            console.log(error);
+            console.log(error.response);
+            error.response.data.for
+            alert(
+              "status: " +
+                error.response.status +
+                ";\n" +
+                "statusText: " +
+                error.response.statusText
+            );
+          }.bind(this)
+        );
+    },
+    getMessages() {
+      let url = "/api/messages/";
+      this.axios
+        .get(url)
+        .then(
+          function(response) {
+            this.messages = response.data.results;
+          }.bind(this)
+        )
+        .catch(
+          function(response) {
+            console.log(response);
+          }.bind(this)
+        );
     }
   }
 };

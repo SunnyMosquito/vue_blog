@@ -2,7 +2,7 @@
   <div class="post">
     <app-header></app-header>
     <article class="markdown-body wrap" v-html="compiledMarkdown"></article>
-    <comment></comment>
+    <comment :post-id="postId" :post-comment="postComment"></comment>
     <app-footer></app-footer>
   </div>
 </template>
@@ -19,7 +19,9 @@ export default {
   name: "post",
   data() {
     return {
-      post: { content: null }
+      post: { content: null },
+      postId: null,
+      postComment: null
     };
   },
   components: {
@@ -48,7 +50,12 @@ export default {
           .then(
             function(response) {
               this.post = response.data;
-              this.SET_POST({ data: this.post, id: postId });
+              this.postId = response.data.id;
+              this.postComment = response.data.post_comment;
+              this.SET_POST({
+                data: this.post,
+                id: postId
+              });
             }.bind(this)
           )
           .catch(
@@ -58,6 +65,7 @@ export default {
           );
       } else {
         this.post = this.posts[postId];
+        this.postComment = this.post.post_comment;
       }
     }
   }

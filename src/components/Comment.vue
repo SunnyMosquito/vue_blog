@@ -1,7 +1,7 @@
 <template>
   <section class="comment wrap">
     <h3>评论</h3>
-    <div class="list-item" v-for="(comment, index) in commentList" :key="index">
+    <div class="list-item" v-for="(comment, index) in postComment" :key="index">
       <img
         class="list-avatar"
         src="http://sucimg.itc.cn/avatarimg/961328461_1523865991659_c55"
@@ -10,7 +10,7 @@
       <div class="list-content-wrapper">
         <div class="list-content-info">
           <span class="list-nickname">{{comment.nickname}}</span>
-          <span class="list-comment-time">{{comment.date}}</span>
+          <span class="list-comment-time">{{comment.pub_date}}</span>
         </div>
         <p class="list-content">{{comment.content}}</p>
       </div>
@@ -26,33 +26,44 @@ import { getNowFormatDate } from "../config/utils.js";
 export default {
   name: "comment",
   data() {
-    return {
-      commentList: [
-        {
-          id: 1,
-          content:
-            "微风袭过，银杏树的枝丫晃了晃，一片银杏叶落到地上。李墨衍蹲下，将其拾起。若是那人见了，估计又要心痛不已了。他可是最宝贝这银杏树的。",
-          nickname: "李四",
-          date: "2015-01-12"
-        }
-      ]
-    };
+    return {};
   },
   components: {
     CommentForm
   },
   methods: {
     submitContent(msg) {
-      this.commentList.push({
-        id: 2,
-        content: msg.message,
-        nickname: msg.nickname,
-        date: getNowFormatDate()
-      });
+      this.postCommentData(msg);
+      console.log(this.postId);
+    },
+    postCommentData(msg) {
+      msg["post"] = this.postId;
+      let url = "/api/comments/";
+      this.axios
+        .post(url, msg)
+        .then(
+          function(response) {
+            console.log(response.data);
+            // this.postComment.push(response.data);
+          }.bind(this)
+        )
+        .catch(
+          function(error) {
+            console.log(error);
+            console.log(error.response);
+            error.response.data.for;
+            alert(
+              "status: " +
+                error.response.status +
+                ";\n" +
+                "statusText: " +
+                error.response.statusText
+            );
+          }.bind(this)
+        );
     }
   },
-  props: {},
-  watch: {}
+  props: ["post-id", "post-comment"]
 };
 </script>
 

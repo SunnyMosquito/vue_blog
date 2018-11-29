@@ -45,7 +45,7 @@ export default {
   methods: {
     submitContent() {
       console.log("commentForm.vue");
-      let comment = { nickname: this.nickname, message: this.message };
+      let comment = { nickname: this.nickname, content: this.message };
       this.$emit("submitContent", comment);
       this.message = "";
     }
