@@ -49,7 +49,7 @@ export default [{
         path: '/posts/:postId',
         component: post,
         meta: {
-            keepAlive: true
+            keepAlive: false
         }
     }
 ]

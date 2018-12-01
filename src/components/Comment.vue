@@ -21,7 +21,7 @@
 
 <script>
 import CommentForm from "../components/CommentForm.vue";
-import { getNowFormatDate } from "../config/utils.js";
+import { mapMutations } from "vuex";
 
 export default {
   name: "comment",
@@ -32,9 +32,17 @@ export default {
     CommentForm
   },
   methods: {
+    ...mapMutations(["SET_POST_COMMENT"]),
     submitContent(msg) {
+      if (!msg.nickname) {
+        alert("昵称不能为空");
+        return;
+      }
+      if (!msg.content) {
+        alert("内容不能为空");
+        return;
+      }
       this.postCommentData(msg);
-      console.log(this.postId);
     },
     postCommentData(msg) {
       msg["post"] = this.postId;
@@ -43,27 +51,41 @@ export default {
         .post(url, msg)
         .then(
           function(response) {
-            console.log(response.data);
-            // this.postComment.push(response.data);
+            this.SET_POST_COMMENT({ id: this.postId, data: response.data });
           }.bind(this)
         )
         .catch(
           function(error) {
-            console.log(error);
-            console.log(error.response);
-            error.response.data.for;
-            alert(
+            if (!error.hasOwnProperty("response")) {
+              alert(error);
+              return;
+            }
+            let errorData =
               "status: " +
-                error.response.status +
-                ";\n" +
-                "statusText: " +
-                error.response.statusText
-            );
+              error.response.status +
+              ";\n" +
+              "statusText: " +
+              error.response.statusText +
+              ";\n";
+            for (const key in error.response.data) {
+              if (error.response.data.hasOwnProperty(key)) {
+                const element = error.response.data[key];
+                errorData += key.toString() + ": " + element + ";\n";
+              }
+            }
+            alert(errorData);
           }.bind(this)
         );
     }
   },
-  props: ["post-id", "post-comment"]
+  props: {
+    postId: {
+      type: String
+    },
+    postComment: {
+      type: Array
+    }
+  }
 };
 </script>
 

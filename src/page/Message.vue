@@ -20,7 +20,6 @@
 import AppHeader from "../components/header/AppHeader.vue";
 import AppFooter from "../components/footer/AppFooter.vue";
 import CommentForm from "../components/CommentForm.vue";
-import { getNowFormatDate } from "../config/utils.js";
 
 export default {
   name: "message",
@@ -42,13 +41,14 @@ export default {
   },
   methods: {
     submitContent(msg) {
-      // console.log("message.vue");
-      // this.messages.push({
-      //   id: 1,
-      //   content: msg.message,
-      //   nickname: msg.nickname,
-      //   date: getNowFormatDate()
-      // });
+      if (!msg.nickname) {
+        alert("昵称不能为空");
+        return;
+      }
+      if (!msg.content) {
+        alert("内容不能为空");
+        return;
+      }
       this.postMessage(msg);
     },
     postMessage(msg) {
@@ -57,7 +57,6 @@ export default {
         .post(url, msg)
         .then(
           function(response) {
-            console.log(response.data);
             this.messages.push(response.data);
           }.bind(this)
         )
@@ -65,7 +64,7 @@ export default {
           function(error) {
             console.log(error);
             console.log(error.response);
-            error.response.data.for
+            error.response.data.for;
             alert(
               "status: " +
                 error.response.status +
@@ -86,8 +85,8 @@ export default {
           }.bind(this)
         )
         .catch(
-          function(response) {
-            console.log(response);
+          function(error) {
+            console.log(error);
           }.bind(this)
         );
     }

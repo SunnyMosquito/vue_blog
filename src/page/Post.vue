@@ -2,7 +2,7 @@
   <div class="post">
     <app-header></app-header>
     <article class="markdown-body wrap" v-html="compiledMarkdown"></article>
-    <comment :post-id="postId" :post-comment="postComment"></comment>
+    <comment :post-id="postId" :post-comment="post.post_comment"></comment>
     <app-footer></app-footer>
   </div>
 </template>
@@ -19,9 +19,8 @@ export default {
   name: "post",
   data() {
     return {
-      post: { content: null },
-      postId: null,
-      postComment: null
+      post: {},
+      postId: this.$route.params.postId
     };
   },
   components: {
@@ -38,7 +37,7 @@ export default {
     }
   },
   created() {
-    this.getPostData(this.$route.params.postId);
+    this.getPostData(this.postId);
   },
   methods: {
     ...mapMutations(["SET_POST"]),
@@ -50,22 +49,17 @@ export default {
           .then(
             function(response) {
               this.post = response.data;
-              this.postId = response.data.id;
-              this.postComment = response.data.post_comment;
-              this.SET_POST({
-                data: this.post,
-                id: postId
-              });
+              this.SET_POST({ data: response.data });
             }.bind(this)
           )
           .catch(
-            function(response) {
-              console.log(response);
+            function(error) {
+              console.log(error);
+              this.$router.push("/");
             }.bind(this)
           );
       } else {
         this.post = this.posts[postId];
-        this.postComment = this.post.post_comment;
       }
     }
   }

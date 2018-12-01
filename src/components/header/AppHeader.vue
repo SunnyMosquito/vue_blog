@@ -67,8 +67,8 @@ export default {
             }.bind(this)
           )
           .catch(
-            function(response) {
-              console.log(response);
+            function(error) {
+              console.log(error);
             }.bind(this)
           );
       }

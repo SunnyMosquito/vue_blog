@@ -3,18 +3,25 @@
     <app-header></app-header>
     <section class="category wrap">
       <ul class="year">
-        <li v-for="(item,index) in archive" :key="index" @click="item.show=!item.show" class="year-item">
+        <li
+          v-for="(item,index) in archive"
+          :key="index"
+          @click="item.show=!item.show"
+          class="year-item"
+        >
           <h3>{{item.year}}</h3>
-          <transition name="collapse-transition"
-                      v-on:before-enter="beforeEnter"
-                      v-on:enter="enter"
-                      v-on:after-enter="afterEnter"
-                      v-on:before-leave="beforeLeave"
-                      v-on:leave="leave"
-                      v-on:after-leave="afterLeave">
+          <transition
+            name="collapse-transition"
+            v-on:before-enter="beforeEnter"
+            v-on:enter="enter"
+            v-on:after-enter="afterEnter"
+            v-on:before-leave="beforeLeave"
+            v-on:leave="leave"
+            v-on:after-leave="afterLeave"
+          >
             <ul class="detail-date" v-show="item.show">
               <li v-for="(child,i) in item.child" :key="i" class="detail-item">
-                <router-link :to="'/posts/' + i + '/'">{{child}}</router-link>
+                <router-link :to="'/posts/' + child.id + '/'">{{child.pub_date}} {{child.title}}</router-link>
               </li>
             </ul>
           </transition>
@@ -31,24 +38,43 @@ import AppFooter from "../components/footer/AppFooter.vue";
 export default {
   data() {
     return {
-      archive: [
-        {
-          year: 2018,
-          show: false,
-          child: [
-            "2018-11-12 这是一个标题",
-            "2018-11-30 这三个都为0，scrollHeight的高度就是真实的内容高度了这三个都为0，scrollHeight的高度就是真实的内容高度了"
-          ]
-        },
-        { year: 2017, show: false, child: ["2017-08-12"] }
-      ]
+      archive: []
     };
   },
   components: {
     AppHeader,
     AppFooter
   },
+  created() {
+    this.getArchive();
+  },
   methods: {
+    getArchive() {
+      let url = "/api/archive/";
+      this.axios
+        .get(url)
+        .then(
+          function(response) {
+            // 加上show和year
+            for (const key in response.data) {
+              if (response.data.hasOwnProperty(key)) {
+                const element = response.data[key];
+                this.archive.push({ year: key, show: false, child: element });
+              }
+            }
+            // 降序排序
+            this.archive.sort((a, b) => {
+              return b.year - a.year;
+            });
+          }.bind(this)
+        )
+        .catch(
+          function(error) {
+            console.log(error);
+          }.bind(this)
+        );
+    },
+    // getArchive() {},
     beforeEnter(el) {
       if (!el.dataset) el.dataset = {};
       let styles = window.getComputedStyle(el);
@@ -67,7 +93,6 @@ export default {
       if (el.scrollHeight !== 0) {
         // 动画过程中，逐渐增大到展开前应占的高度值
         el.style.height = el.scrollHeight + "px";
-        console.log(el.scrollHeight);
         el.style.paddingTop = el.dataset.oldPaddingTop;
         el.style.paddingBottom = el.dataset.oldPaddingBottom;
       }
@@ -106,6 +131,13 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/style/global";
+// 页面高度不够底部固定
+.footer {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+}
 .collapse-transition {
   transition: all 0.3s linear;
 }

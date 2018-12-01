@@ -44,7 +44,6 @@ export default {
   },
   methods: {
     submitContent() {
-      console.log("commentForm.vue");
       let comment = { nickname: this.nickname, content: this.message };
       this.$emit("submitContent", comment);
       this.message = "";
@@ -75,9 +74,10 @@ form {
   .message-content {
     font-size: px2rem(16);
     width: 80%;
-    padding: px2rem(1);
+    padding: px2rem(5);
     border-radius: px2rem(5);
     border: px2rem(1) solid $linkColor;
+    outline-color: $bgColor;
   }
   .message-content {
     height: px2rem(54);
@@ -85,8 +85,7 @@ form {
   .submit,
   .reset {
     width: 40%;
-    padding-top: px2rem(6);
-    padding-bottom: px2rem(6);
+    padding:px2rem(6) 0;
     outline: 0;
     border-radius: px2rem(5);
     background-color: #4caf50;
