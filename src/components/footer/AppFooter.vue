@@ -1,8 +1,6 @@
 <template>
   <footer class="footer">
-    <a href="http://www.miitbeian.gov.cn">
-			互联网ICP备案：粤ICP备18061554号
-		</a>
+    <a href="http://www.miitbeian.gov.cn">互联网ICP备案：粤ICP备18061554号</a>
   </footer>
 </template>
 

@@ -69,7 +69,13 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 @import "../assets/style/global";
-.markdown-body {
-  margin: px2rem(20) 0;
+.post {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  .markdown-body {
+    flex: 1;
+    margin: px2rem(20) 0;
+  }
 }
 </style>

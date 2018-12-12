@@ -2,11 +2,7 @@
   <section class="comment wrap">
     <h3>评论</h3>
     <div class="list-item" v-for="(comment, index) in postComment" :key="index">
-      <img
-        class="list-avatar"
-        src="http://sucimg.itc.cn/avatarimg/961328461_1523865991659_c55"
-        title="流雪"
-      >
+      <div class="list-avatar"></div>
       <div class="list-content-wrapper">
         <div class="list-content-info">
           <span class="list-nickname">{{comment.nickname}}</span>
@@ -101,12 +97,26 @@ export default {
     .list-avatar {
       width: px2rem(35);
       height: px2rem(35);
-      border-radius: 50%;
-      padding: px2rem(15);
+      margin: px2rem(10);
+    }
+    &:nth-of-type(n) {
+      .list-avatar {
+        background-color: #ccc;
+      }
+    }
+    &:nth-of-type(2n) {
+      .list-avatar {
+        background-color: #444;
+      }
+    }
+    &:nth-of-type(3n) {
+      .list-avatar {
+        background-color: #888;
+      }
     }
     .list-content-wrapper {
       display: flex;
-      width: 100%;
+      flex: 1;
       font-size: px2rem(12);
       flex-direction: column;
       font-size: px2rem(14);

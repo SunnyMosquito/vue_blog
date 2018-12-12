@@ -131,44 +131,46 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/style/global";
-// 页面高度不够底部固定
-.footer {
-  position: fixed;
-  width: 100%;
-  left: 0;
-  bottom: 0;
-}
+
 .collapse-transition {
   transition: all 0.3s linear;
 }
-.category {
-  margin: px2rem(20) 0;
-  .year {
-    h3 {
-      font-size: px2rem(16);
-      font-weight: 700;
-    }
-    line-height: 80%;
-    .year-item {
-      border-bottom: px2rem(1) solid $bgColor;
-      &:last-child {
-        border-bottom: none;
+
+.archive {
+  // 页面高度不够底部固定
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  .category {
+    flex: 1;
+    margin: px2rem(20) 0;
+    .year {
+      h3 {
+        font-size: px2rem(16);
+        font-weight: 700;
       }
-      .detail-date {
-        .detail-item {
-          display: flex;
-          padding-left: px2rem(10);
-          border-bottom: px2rem(1) solid $bgColor;
-          &:last-child {
-            border-bottom: none;
-          }
-          a {
-            color: $linkColor;
-            vertical-align: middle;
-            font-size: px2rem(12);
-            font-weight: 400;
-            white-space: nowrap;
-            overflow: scroll;
+      line-height: 80%;
+      .year-item {
+        border-bottom: px2rem(1) solid $bgColor;
+        &:last-child {
+          border-bottom: none;
+        }
+        .detail-date {
+          .detail-item {
+            display: flex;
+            padding-left: px2rem(10);
+            border-bottom: px2rem(1) solid $bgColor;
+            &:last-child {
+              border-bottom: none;
+            }
+            a {
+              color: $linkColor;
+              vertical-align: middle;
+              font-size: px2rem(12);
+              font-weight: 400;
+              white-space: nowrap;
+              overflow: scroll;
+            }
           }
         }
       }

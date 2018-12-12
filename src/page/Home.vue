@@ -89,7 +89,12 @@ export default {
 <style lang="scss" scoped>
 @import "../assets/style/global";
 .home {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
   .content {
+    flex: 1;
     margin-top: px2rem(10);
     color: $bgColor;
     .post {

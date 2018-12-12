@@ -88,16 +88,13 @@ export default {
 </script>
 <style lang="scss" scoped>
 // 页面高度不够，底部固定
-.footer {
-  position: fixed;
-  width: 100%;
-  left: 0;
-  bottom: 0;
-}
-
-body {
-  margin: 0;
-  padding: 0;
+.about {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  .content {
+    flex: 1;
+  }
 }
 
 .wrapper {

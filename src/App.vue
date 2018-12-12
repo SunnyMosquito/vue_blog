@@ -30,6 +30,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 <style lang="scss">
 @import "./assets/style/global";
+#app {
+  width: 100%;
+  height: 100%;
+}
 .router-fade-enter-active,
 .router-fade-leave-active {
   transition: opacity 0.3s;

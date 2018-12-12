@@ -1,7 +1,7 @@
 <template>
-  <div class="home">
+  <div class="category">
     <app-header></app-header>
-    <section class="category wrap">
+    <section class="content wrap">
       <h2>{{this.$route.params.categoryName}}</h2>
       <ul>
         <li v-for="(item, index) in postList" :key="index">
@@ -75,24 +75,30 @@ export default {
 <style lang="scss" scoped>
 @import "../assets/style/global";
 .category {
-  margin-top: px2rem(20);
-  margin-bottom: px2rem(20);
-  h2 {
-    text-align: center;
-    padding: px2rem(8) 0;
-    font-size: px2rem(18);
-    border-bottom: px2rem(1) solid $bgColor;
-  }
-  ul {
-    li {
-      a {
-        display: flex;
-        color: $linkColor;
-        font-size: px2rem(14);
-        padding: px2rem(8) px2rem(4);
-        border-bottom: px2rem(1) solid $bgColor;
-        white-space: nowrap;
-        overflow: scroll;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  .content {
+    flex: 1;
+    margin-top: px2rem(20);
+    margin-bottom: px2rem(20);
+    h2 {
+      text-align: center;
+      padding: px2rem(8) 0;
+      font-size: px2rem(18);
+      border-bottom: px2rem(1) solid $bgColor;
+    }
+    ul {
+      li {
+        a {
+          display: flex;
+          color: $linkColor;
+          font-size: px2rem(14);
+          padding: px2rem(8) px2rem(4);
+          border-bottom: px2rem(1) solid $bgColor;
+          white-space: nowrap;
+          overflow: scroll;
+        }
       }
     }
   }
