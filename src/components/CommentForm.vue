@@ -85,7 +85,7 @@ form {
   .submit,
   .reset {
     width: 40%;
-    padding:px2rem(6) 0;
+    padding: px2rem(6) 0;
     outline: 0;
     border-radius: px2rem(5);
     background-color: #4caf50;

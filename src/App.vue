@@ -8,19 +8,20 @@
     <transition name="router-fade" mode="out-in">
       <router-view v-if="!$route.meta.keepAlive"></router-view>
     </transition>
+    <go-top/>
   </div>
 </template>
 
 <script>
+import GoTop from "@/components/GoTop.vue";
 export default {
   name: "app",
-  watch: {
-    $route: function(to, from) {
-      console.log("from:" + from.path + " to:" + to.path);
-    }
+  components: {
+    GoTop
   }
 };
 document.addEventListener("DOMContentLoaded", () => {
+  // 加载时更改px，用于rem布局
   const html = document.querySelector("html");
   let fontSize = window.innerWidth / 10;
   fontSize = fontSize > 50 ? 50 : fontSize;

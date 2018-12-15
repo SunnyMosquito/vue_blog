@@ -28,20 +28,20 @@
 </template>
 
 <script>
-import AppHeader from "../components/header/AppHeader.vue";
-import AppFooter from "../components/footer/AppFooter.vue";
-import Pagination from "../components/Pagination.vue";
+import AppHeader from "@/components/header/AppHeader.vue";
+import AppFooter from "@/components/footer/AppFooter.vue";
+import Pagination from "@/components/Pagination.vue";
 import { mapState, mapMutations } from "vuex";
 
 export default {
-  name: "Home",
+  name: "home",
   data() {
     return {
-      current: 1,
-      count: null,
-      prev: "",
-      next: "",
-      postList: []
+      current: 1, // 当前在第几页
+      count: null, // 总共多少页
+      prev: "", // 上一页链接
+      next: "", // 下一页链接
+      postList: [] // post列表
     };
   },
   components: {
@@ -59,24 +59,26 @@ export default {
     ...mapMutations(["SET_PAGE_LIST"]),
     getPostData(page = 1) {
       let url = `/api/posts/?page=${page}`;
-      if (this.pageList.hasOwnProperty(url)) {
-        this.postList = this.pageList[url].results;
-        this.prev = this.pageList[url].previous;
-        this.next = this.pageList[url].next;
+      // 如果venx里面有就不再请求
+      if (this.pageList.hasOwnProperty(page)) {
+        this.postList = this.pageList[page].results;
+        this.prev = this.pageList[page].previous;
+        this.next = this.pageList[page].next;
       } else {
         this.axios
           .get(url)
           .then(
             function(response) {
-              this.SET_PAGE_LIST({ url: url, response: response.data });
-              this.postList = this.pageList[url].results;
-              this.prev = this.pageList[url].previous;
-              this.next = this.pageList[url].next;
+              this.SET_PAGE_LIST({ page: page, response: response.data });
+              this.postList = this.pageList[page].results;
+              this.prev = this.pageList[page].previous;
+              this.next = this.pageList[page].next;
             }.bind(this)
           )
           .catch(
-            function(response) {
-              console.log(response);
+            function(error) {
+              alert(error);
+              this.$router.push("/");
             }.bind(this)
           );
       }

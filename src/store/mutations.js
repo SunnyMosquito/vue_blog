@@ -15,7 +15,7 @@ export default {
     },
     // 每一个页面的post列表
     [types.SET_PAGE_LIST](state, pageData) {
-        state.pageList[pageData.url] = pageData.response;
+        state.pageList[pageData.page] = pageData.response;
     },
     // 修改post_comment
     [types.SET_POST_COMMENT](state, payload) {

@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: "Pagination",
+  name: "pagination",
   data() {
     return {
       childCurrent: this.current
@@ -19,7 +19,7 @@ export default {
     count: {
       // 数据总条数
       type: Number,
-      default: 0
+      default: 1
     },
     current: {
       // 当前页数

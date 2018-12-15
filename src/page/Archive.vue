@@ -2,6 +2,7 @@
   <div class="archive">
     <app-header></app-header>
     <section class="category wrap">
+      <h3 v-if="archive.length < 1">什么也没有...</h3>
       <ul class="year">
         <li
           v-for="(item,index) in archive"
@@ -70,11 +71,11 @@ export default {
         )
         .catch(
           function(error) {
-            console.log(error);
+            alert(error);
+            this.$router.push("/");
           }.bind(this)
         );
     },
-    // getArchive() {},
     beforeEnter(el) {
       if (!el.dataset) el.dataset = {};
       let styles = window.getComputedStyle(el);
@@ -144,11 +145,11 @@ export default {
   .category {
     flex: 1;
     margin: px2rem(20) 0;
+    h3 {
+      font-size: px2rem(16);
+      font-weight: 700;
+    }
     .year {
-      h3 {
-        font-size: px2rem(16);
-        font-weight: 700;
-      }
       line-height: 80%;
       .year-item {
         border-bottom: px2rem(1) solid $bgColor;

@@ -3,6 +3,7 @@
     <app-header></app-header>
     <section class="content wrap">
       <h2>{{this.$route.params.categoryName}}</h2>
+      <h3 v-if="postList.length < 1">什么也没有...</h3>
       <ul>
         <li v-for="(item, index) in postList" :key="index">
           <router-link :to="'/posts/' + item.id + '/'">{{item.title}}</router-link>
@@ -34,7 +35,9 @@ export default {
     this.getPostData(this.$route.params.categoryName);
   },
   watch: {
+    // 路由改变重新获取分类数据,是该页面的路由
     $route: function() {
+      this.postList = [];
       this.getPostData(this.$route.params.categoryName);
     }
   },
@@ -57,12 +60,12 @@ export default {
                 data: response.data.results
               });
               this.postList = response.data.results;
-              console.log(response);
             }.bind(this)
           )
           .catch(
-            function(response) {
-              console.log(response);
+            function(error) {
+              alert(error);
+              this.$router.push("/");
             }.bind(this)
           );
       }
@@ -82,11 +85,15 @@ export default {
     flex: 1;
     margin-top: px2rem(20);
     margin-bottom: px2rem(20);
-    h2 {
+    h2,
+    h3 {
       text-align: center;
       padding: px2rem(8) 0;
       font-size: px2rem(18);
       border-bottom: px2rem(1) solid $bgColor;
+    }
+    h3 {
+      border: none;
     }
     ul {
       li {

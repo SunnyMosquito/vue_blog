@@ -38,8 +38,9 @@
 
 <script>
 import { mapState, mapMutations } from "vuex";
+import Headroom from "headroom.js";
 export default {
-  name: "AppHeader",
+  name: "appHeader",
   data() {
     return {
       ifSubMenuShow: false
@@ -48,7 +49,22 @@ export default {
   created() {
     this.getCategories();
   },
-  mounted() {},
+  mounted() {
+    // let lastTop = 0;
+    // window.onscroll = function() {
+    //   let head = document.querySelector("header");
+    //   let sTop = document.body.scrollTop + document.documentElement.scrollTop;
+    //   if (sTop < 20 || sTop > lastTop) {
+    //     //向下 或再 页面顶部，放在 头部
+    //     head.style.position = "static";
+    //   } else if (sTop < lastTop) {
+    //     //向上，悬浮
+    //     head.style.position = "fixed";
+    //   }
+    //   lastTop = sTop;
+    // };
+  },
+  components: {},
   computed: {
     ...mapState(["categories"])
   },
@@ -68,7 +84,7 @@ export default {
           )
           .catch(
             function(error) {
-              console.log(error);
+              alert(error);
             }.bind(this)
           );
       }
@@ -99,6 +115,8 @@ export default {
 }
 .header {
   display: flex;
+  width: 100%;
+  box-sizing: border-box;
   flex-direction: column;
   justify-content: center;
   align-items: center;

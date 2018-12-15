@@ -4,6 +4,7 @@
     <div class="content wrap">
       <section class="page">
         <h2 class="title">说些什么</h2>
+        <h3 v-if="messages.length < 1">什么也没有...</h3>
         <div class="item" v-for="(item,index) in messages" :key="index">
           <b>{{item.nickname}}：</b>
           <p>{{item.content}}</p>
@@ -41,11 +42,12 @@ export default {
   },
   methods: {
     submitContent(msg) {
+      msg.nickname = msg.nickname.replace(/^\s\s*/, "");
       if (!msg.nickname) {
         alert("昵称不能为空");
         return;
       }
-      if (!msg.content) {
+      if (!msg.content.replace(/^\s\s*/, "")) {
         alert("内容不能为空");
         return;
       }
@@ -62,16 +64,17 @@ export default {
         )
         .catch(
           function(error) {
-            console.log(error);
-            console.log(error.response);
-            error.response.data.for;
-            alert(
-              "status: " +
-                error.response.status +
-                ";\n" +
-                "statusText: " +
-                error.response.statusText
-            );
+            if (!error.response) {
+              alert(error);
+            } else {
+              alert(
+                "status: " +
+                  error.response.status +
+                  ";\n" +
+                  "statusText: " +
+                  error.response.statusText
+              );
+            }
           }.bind(this)
         );
     },
@@ -86,7 +89,7 @@ export default {
         )
         .catch(
           function(error) {
-            console.log(error);
+            alert(error);
           }.bind(this)
         );
     }
@@ -141,6 +144,9 @@ export default {
         font-size: 18px;
         font-style: italic;
         line-height: 25px;
+      }
+      h3 {
+        padding: 50px 0;
       }
       &::after {
         width: 30%;

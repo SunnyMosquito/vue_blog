@@ -1,6 +1,7 @@
 <template>
   <div class="about">
     <app-header></app-header>
+    <h2 class="hello">Hello World!!!</h2>
     <div class="content wrap">
       <div class="wrapper">
         <!-- 容器 -->
@@ -87,11 +88,17 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@import "../assets/style/global";
 // 页面高度不够，底部固定
 .about {
   min-height: 100%;
   display: flex;
   flex-direction: column;
+  .hello {
+    margin: 0 auto;
+    margin-top: px2rem(40);
+    font-size: px2rem(20);
+  }
   .content {
     flex: 1;
   }
@@ -99,9 +106,7 @@ export default {
 
 .wrapper {
   transform: scale(0.5);
-}
 
-.wrapper {
   width: 300px;
   margin: 100px auto;
 }

@@ -30,11 +30,12 @@ export default {
   methods: {
     ...mapMutations(["SET_POST_COMMENT"]),
     submitContent(msg) {
+      msg.nickname = msg.nickname.replace(/^\s\s*/, "");
       if (!msg.nickname) {
         alert("昵称不能为空");
         return;
       }
-      if (!msg.content) {
+      if (!msg.content.replace(/^\s\s*/, "")) {
         alert("内容不能为空");
         return;
       }
@@ -52,24 +53,24 @@ export default {
         )
         .catch(
           function(error) {
-            if (!error.hasOwnProperty("response")) {
+            if (!error.response) {
               alert(error);
-              return;
-            }
-            let errorData =
-              "status: " +
-              error.response.status +
-              ";\n" +
-              "statusText: " +
-              error.response.statusText +
-              ";\n";
-            for (const key in error.response.data) {
-              if (error.response.data.hasOwnProperty(key)) {
-                const element = error.response.data[key];
-                errorData += key.toString() + ": " + element + ";\n";
+            } else {
+              let errorData =
+                "status: " +
+                error.response.status +
+                ";\n" +
+                "statusText: " +
+                error.response.statusText +
+                ";\n";
+              for (const key in error.response.data) {
+                if (error.response.data.hasOwnProperty(key)) {
+                  const element = error.response.data[key];
+                  errorData += key.toString() + ": " + element + ";\n";
+                }
               }
+              alert(errorData);
             }
-            alert(errorData);
           }.bind(this)
         );
     }
