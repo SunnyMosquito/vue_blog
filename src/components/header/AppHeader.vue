@@ -38,7 +38,6 @@
 
 <script>
 import { mapState, mapMutations } from "vuex";
-import Headroom from "headroom.js";
 export default {
   name: "appHeader",
   data() {
@@ -49,21 +48,7 @@ export default {
   created() {
     this.getCategories();
   },
-  mounted() {
-    // let lastTop = 0;
-    // window.onscroll = function() {
-    //   let head = document.querySelector("header");
-    //   let sTop = document.body.scrollTop + document.documentElement.scrollTop;
-    //   if (sTop < 20 || sTop > lastTop) {
-    //     //向下 或再 页面顶部，放在 头部
-    //     head.style.position = "static";
-    //   } else if (sTop < lastTop) {
-    //     //向上，悬浮
-    //     head.style.position = "fixed";
-    //   }
-    //   lastTop = sTop;
-    // };
-  },
+  mounted() {},
   components: {},
   computed: {
     ...mapState(["categories"])
