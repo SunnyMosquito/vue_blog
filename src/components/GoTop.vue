@@ -13,25 +13,22 @@ export default {
     };
   },
   mounted() {
-    this.needScroll();
+    window.addEventListener("scroll", this.handleScroll);
   },
   methods: {
-    needScroll() {
+    handleScroll() {
       let clientHeight = document.documentElement.clientHeight;
       let obtn = this.$refs.btn;
-      window.onscroll = function() {
-        let osTop =
-          document.documentElement.scrollTop || document.body.scrollTop;
-        if (osTop >= clientHeight) {
-          obtn.style.display = "block";
-        } else {
-          obtn.style.display = "none";
-        }
-        if (!this.isTop) {
-          clearInterval(this.timer);
-        }
-        this.isTop = false;
-      };
+      let osTop = document.documentElement.scrollTop || document.body.scrollTop;
+      if (osTop >= clientHeight) {
+        obtn.style.display = "block";
+      } else {
+        obtn.style.display = "none";
+      }
+      if (!this.isTop) {
+        clearInterval(this.timer);
+      }
+      this.isTop = false;
     },
     goTop() {
       // 箭头函数是词法作用域

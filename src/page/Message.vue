@@ -18,9 +18,9 @@
 </template>
 
 <script>
-import AppHeader from "../components/header/AppHeader.vue";
-import AppFooter from "../components/footer/AppFooter.vue";
-import CommentForm from "../components/CommentForm.vue";
+import AppHeader from "@/components/header/AppHeader.vue";
+import AppFooter from "@/components/footer/AppFooter.vue";
+import CommentForm from "@/components/CommentForm.vue";
 
 export default {
   name: "message",

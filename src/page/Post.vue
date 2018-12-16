@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import AppHeader from "../components/header/AppHeader.vue";
-import AppFooter from "../components/footer/AppFooter.vue";
-import Comment from "../components/Comment.vue";
+import AppHeader from "@/components/header/AppHeader.vue";
+import AppFooter from "@/components/footer/AppFooter.vue";
+import Comment from "@/components/Comment.vue";
 import marked from "marked";
 import { mapState, mapMutations } from "vuex";
 import "github-markdown-css";

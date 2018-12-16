@@ -1,5 +1,5 @@
 <template>
-  <header class="header wrap" @click="hideSubMenu">
+  <header class="header wrap" @click="hideSubMenu" ref="header">
     <div class="logo">
       <h1>
         <router-link to="/">蚊子的个人博客</router-link>
@@ -49,12 +49,12 @@ export default {
     this.getCategories();
   },
   mounted() {},
+  destroyed() {},
   components: {},
   computed: {
     ...mapState(["categories"])
   },
   methods: {
-    // headroom.js
     ...mapMutations(["SET_CATEGORIES"]),
     getCategories() {
       let url = "/api/categorys/";

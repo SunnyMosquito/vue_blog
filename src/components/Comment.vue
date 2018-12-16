@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import CommentForm from "../components/CommentForm.vue";
+import CommentForm from "@/components/CommentForm.vue";
 import { mapMutations } from "vuex";
 
 export default {
@@ -53,24 +53,7 @@ export default {
         )
         .catch(
           function(error) {
-            if (!error.response) {
-              alert(error);
-            } else {
-              let errorData =
-                "status: " +
-                error.response.status +
-                ";\n" +
-                "statusText: " +
-                error.response.statusText +
-                ";\n";
-              for (const key in error.response.data) {
-                if (error.response.data.hasOwnProperty(key)) {
-                  const element = error.response.data[key];
-                  errorData += key.toString() + ": " + element + ";\n";
-                }
-              }
-              alert(errorData);
-            }
+            alert(error);
           }.bind(this)
         );
     }

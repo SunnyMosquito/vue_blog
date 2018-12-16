@@ -30,7 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 <style lang="scss">
-@import "./assets/style/global";
 #app {
   width: 100%;
   height: 100%;
