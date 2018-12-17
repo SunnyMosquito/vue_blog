@@ -116,11 +116,26 @@ export default {
         a {
           color: $linkColor;
         }
+        .cut-off {
+          padding-left: px2rem(10);
+          padding-right: px2rem(10);
+        }
       }
       .post-summary {
         font-size: px2rem(14);
         font-weight: 200;
         line-height: 140%;
+      }
+      .button-round {
+        display: inline-flex;
+        box-sizing: border-box;
+        padding: px2rem(6) px2rem(14);
+        border: px2rem(1) solid #d3d3d3;
+        border-radius: px2rem(20);
+        background-color: #fff;
+        color: #333;
+        font-size: px2rem(12);
+        font-weight: 300;
       }
     }
   }
