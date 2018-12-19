@@ -1,5 +1,7 @@
 module.exports = {
   baseUrl: "/",
+  outputDir: "dist",
+  assetsDir: "static/",
   devServer: {
     port: 8080, // 端口号
     host: "0.0.0.0",
